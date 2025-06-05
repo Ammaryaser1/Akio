@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akio Edits - عالم المونتاج الاحترافي</title>
+    <!-- استيراد خطوط جوجل لتصميم الأنمي والعربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- CSS مدمج هنا -->
+    <style>
+        /* تعريف متغيرات الألوان والتوهج */
+        :root {
+            --primary-color: #6a05ed; /* بنفسجي غامق جذاب */
+            --secondary-color: #00bcd4; /* أزرق سماوي نابض بالحياة */
+            --accent-color-1: #ff007f; /* فوشيا للتوهج */
+            --accent-color-2: #00ffc8; /* أخضر مائي للتوهج الثاني */
+            --text-color: #e0e0e0; /* نص فاتح */
+            --bg-color: #0d0d2b; /* خلفية داكنة جداً */
+            --card-bg: #1c1c3a; /* خلفية بطاقات أغمق قليلاً */
+            --border-glow-1: #6a05ed;
+            --border-glow-2: #00bcd4;
+        }
+
+        /* إعادة تعيين الأنماط الافتراضية للمتصفح */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* أنماط الجسم الأساسية */
+        html, body {
+            height: 100%; /* لضمان أن تكون الخلفية ثابتة على الـ full height */
+            margin: 0; /* تأكيد إزالة الهوامش الافتراضية للـ body */
+            padding: 0; /* تأكيد إزالة الحشوات الافتراضية للـ body */
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color); /* لون احتياطي في حال عدم تحميل الصورة */
+            color: var(--text-color);
+            line-height: 1.6;
+            direction: rtl; /* اتجاه النص من اليمين لليسار */
+            text-align: right; /* محاذاة النص لليمين */
+            overflow-x: hidden; /* لمنع شريط التمرير الأفقي */
+        }
+
+        /* حاوية الخلفية الرئيسية التي تبدأ من تحت الهيدر */
+        .full-page-background {
+            position: relative; /* لتموضع الأقسام بالداخل */
+            min-height: 100vh; /* لضمان أن تغطي الصفحة كاملة */
+            background-image: url('https://www.cairo24.com/Upload/libfiles/79/5/33.jpg'); /* تم تحديث رابط الصورة هنا */
+            background-size: cover;
+            background-attachment: fixed; /* لتثبيت الخلفية أثناء التمرير */
+            background-position: center center;
+            background-repeat: no-repeat;
+            padding-top: 0; /* تم إزالة الهامش العلوي هنا لعدم وجود الهيدر */
+        }
+
+        /* تنسيق الحاوية لتوسيط المحتوى */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* تأثير التوهج الأساسي للعناصر */
+        .glow-text {
+            text-shadow: 0 0 10px var(--accent-color-1), 0 0 20px var(--accent-color-1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .glow-text:hover {
+            text-shadow: 0 0 15px var(--accent-color-1), 0 0 30px var(--accent-color-1), 0 0 45px var(--accent-color-1);
+        }
+
+        /* زر بتأثير توهج */
+        .glow-btn {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 0 15px var(--secondary-color), 0 0 30px var(--primary-color);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .glow-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: -1;
+        }
+
+        .glow-btn:hover::before {
+            left: 100%;
+        }
+
+        .glow-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 0 20px var(--secondary-color), 0 0 40px var(--primary-color), 0 0 60px var(--accent-color-1);
+        }
+
+        /* حدود بتأثير توهج */
+        .glow-border-card {
+            border: 2px solid;
+            border-image: linear-gradient(45deg, var(--border-glow-1), var(--border-glow-2)) 1;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease-in-out;
+        }
+
+        .glow-border-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 0 20px var(--border-glow-1), 0 0 40px var(--border-glow-2), 0 0 60px var(--accent-color-2);
+        }
+
+        /* تم إزالة جميع أنماط .main-header, .logo, nav هنا */
+        /* لأن الشريط العلوي قد تم إزالته بالكامل */
+
+        /* قسم البطل (Hero Section) - تصميم ديناميكي متطور */
+        .hero-section {
+            /* تعديل الخلفية لتكون شفافة للسماح بظهور خلفية الـ body */
+            background: linear-gradient(135deg, rgba(13, 13, 43, 0.0), rgba(28, 28, 58, 0.0)); /* جعل الخلفية شفافة تماماً */
+            position: relative;
+            height: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            border-bottom: 5px solid var(--secondary-color);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 85%, rgba(255, 0, 127, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 85% 15%, rgba(0, 255, 200, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(106, 5, 237, 0.15) 0%, transparent 50%);
+            background-size: 300% 300%, 300% 300%, 300% 300%;
+            animation: move-gradient-1 20s linear infinite alternate, 
+                       move-gradient-2 25s ease-in-out infinite alternate, 
+                       move-gradient-3 18s linear infinite alternate;
+            z-index: 0;
+            opacity: 0.8;
+            filter: blur(2px); /* لتأثير ضبابي أكثر نعومة */
+        }
+        
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0; /* إزالة هذه الطبقة لأنها لم تعد ضرورية مع الخلفية الكاملة */
+            z-index: 1;
+        }
+
+        @keyframes move-gradient-1 {
+            0% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+            100% { background-position: 100% 100%, 0% 0%, 50% 50%; }
+        }
+
+        @keyframes move-gradient-2 {
+            0% { background-position: 50% 50%, 0% 0%, 100% 100%; }
+            100% { background-position: 0% 100%, 100% 0%, 50% 50%; }
+        }
+        
+        @keyframes move-gradient-3 {
+            0% { background-position: 100% 50%, 50% 0%, 0% 100%; }
+            100% { background-position: 0% 50%, 50% 100%, 100% 0%; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            animation: fadeInScale 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translateY(30px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            margin-bottom: 25px;
+            color: var(--secondary-color);
+            text-shadow: 0 0 15px var(--accent-color-2), 0 0 30px var(--secondary-color);
+        }
+
+        .hero-description {
+            font-size: 1.6em;
+            margin-bottom: 40px;
+            color: var(--text-color);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* الأزرار العامة */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.3em;
+            cursor: pointer;
+            outline: none;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+        }
+
+        /* أنماط عناوين الأقسام */
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 20px;
+            text-shadow: 0 0 10px var(--accent-color-1);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 5px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--accent-color-2);
+        }
+
+        .section-bg {
+            background-color: var(--card-bg);
+            padding: 100px 0;
+            margin: 60px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* قسم من نحن؟ */
+        .about-content {
+            font-size: 1.2em;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            color: #c0c0d0;
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+        }
+
+        /* قسم أعمالنا (Portfolio) */
+        .portfolio-section {
+            padding: 100px 0;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+            justify-content: center;
+        }
+
+        .video-item {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            /* تطبيق تأثير توهج الحدود */
+            border: 2px solid;
+            border-image: linear-gradient(45deg, var(--border-glow-1), var(--border-glow-2)) 1;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease-in-out;
+        }
+
+        .video-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 25px var(--border-glow-1), 0 0 50px var(--border-glow-2), 0 0 75px var(--accent-color-1);
+        }
+        
+        /* تأثير مميز للفيديو عند التمرير */
+        .video-item .video-wrapper video {
+            transition: transform 0.5s ease-out; /* إضافة انتقال للعنصر نفسه */
+            height: 100%; /* لضمان ملء الفيديو للمساحة */
+            width: 100%; /* لضمان ملء الفيديو للمساحة */
+        }
+        
+        .video-item:hover .video-wrapper video {
+            transform: scale(1.05); /* تكبير الفيديو قليلاً عند التمرير */
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 177.77%; /* نسبة أبعاد 9:16 للفيديوهات الطولية (TikTok style) */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 0; /* تم تعديل هذا ليناسب إزالة الـ P */
+            border-radius: 10px;
+            background-color: #000;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .view-more {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        /* قسم المتجر الجديد */
+        #store {
+            padding: 100px 0;
+            background-color: var(--card-bg);
+            margin: 60px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid;
+            border-image: linear-gradient(45deg, var(--accent-color-1), var(--accent-color-2)) 1;
+        }
+
+        #store .container {
+            position: relative;
+            z-index: 2; /* لجعل المحتوى فوق التأثيرات */
+        }
+
+        #store h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5em;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px var(--accent-color-2), 0 0 30px var(--primary-color);
+            animation: pulse-glow 2s infinite alternate; /* نبض على العنوان */
+        }
+
+        #store p {
+            font-size: 1.4em;
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            color: #c0c0d0;
+            line-height: 1.8;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        #store .btn {
+            padding: 20px 60px;
+            font-size: 1.5em;
+            border-radius: 50px; /* زر دائري أكثر */
+            background: linear-gradient(90deg, var(--accent-color-1), var(--primary-color));
+            box-shadow: 0 0 20px var(--accent-color-1), 0 0 40px var(--primary-color);
+            transition: all 0.5s ease-in-out;
+        }
+
+        #store .btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 0 30px var(--accent-color-1), 0 0 60px var(--primary-color), 0 0 90px var(--accent-color-2);
+        }
+
+        /* قسم التواصل (Contact) */
+        .contact-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .contact-intro {
+            font-size: 1.3em;
+            margin-bottom: 50px;
+            color: #c0c0d0;
+        }
+
+        .social-links {
+            margin-top: 60px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .social-links p {
+            font-size: 1.4em;
+            margin-bottom: 25px;
+            width: 100%;
+            color: var(--secondary-color);
+            text-shadow: 0 0 8px var(--accent-color-2);
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            font-size: 2.2em;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--card-bg), rgba(28, 28, 58, 0.8));
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6), inset 0 0 5px rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-8px) scale(1.15);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8), 0 0 25px var(--accent-color-1), inset 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .social-icon.tiktok-icon:hover { color: #00f2ea; }
+        .social-icon.instagram-icon:hover { color: #e1306c; }
+        .social-icon.youtube-icon:hover { color: #FF0000; } /* YouTube red */
+        .social-icon.telegram-icon:hover { color: #0088CC; } /* Telegram blue */
+        .social-icon.discord-icon:hover { color: #7289da; }
+
+        .join-discord-group {
+            margin-top: 40px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* تذييل الصفحة (Footer) */
+        .main-footer {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            text-align: center;
+            padding: 40px 0;
+            border-top: 3px solid var(--primary-color);
+            margin-top: 70px;
+            box-shadow: 0 -44px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* الرسوم المتحركة الأساسية */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* رسوم متحركة لدخول الأقسام - تم تعديلها لتكون أكثر ديناميكية */
+        .hidden-section {
+            opacity: 0;
+            transform: translateY(80px) scale(0.95); /* تأثير هبوط وتصغير خفيف */
+            transition: opacity 1.2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 1.2s cubic-bezier(0.25, 0.2, 0.8, 1);
+        }
+        .fade-in-up {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* شاشة التحميل الأولية */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color); /* نفس لون خلفية الجسم */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999; /* لضمان ظهورها فوق كل شيء */
+            opacity: 1;
+            transition: opacity 1s ease-out, visibility 1s ease-out;
+            visibility: visible;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none; /* لعدم اعتراض التفاعل بعد الإخفاء */
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loading-logo {
+            font-size: 3.5em; /* حجم أكبر للشعار */
+            margin-bottom: 25px;
+            color: var(--secondary-color);
+            text-shadow: 0 0 20px var(--accent-color-2), 0 0 40px var(--primary-color);
+            animation: pulse-glow 2s infinite alternate; /* نفس تأثير النبض للشعار الرئيسي */
+        }
+
+        .loader-spinner {
+            border: 6px solid rgba(255, 255, 255, 0.2);
+            border-top: 6px solid var(--accent-color-1);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            animation: spin 1.5s linear infinite;
+            margin: 25px auto;
+        }
+
+        #loading-screen p {
+            font-size: 1.3em;
+            color: var(--text-color);
+            margin-top: 15px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+
+        /* الاستجابة لتناسب الشاشات المختلفة */
+        @media (max-width: 768px) {
+            .main-header {
+                height: auto; /* السماح للهيدر بالتكيف في الجوال */
+                padding: 10px 0;
+            }
+            .main-header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .main-header nav ul {
+                flex-direction: column;
+                margin-top: 15px;
+            }
+            .main-header nav ul li {
+                margin: 10px 0;
+            }
+            .logo {
+                font-size: 2em;
+            }
+            .hero-title {
+                font-size: 3em;
+            }
+            .hero-description {
+                font-size: 1.4em;
+            }
+            .btn {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+            .section-title {
+                font-size: 2.5em;
+            }
+            .portfolio-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .service-card {
+                padding: 30px;
+            }
+            #store h2 {
+                font-size: 2.5em;
+            }
+            #store p {
+                font-size: 1.2em;
+            }
+            #store .btn {
+                padding: 18px 40px;
+                font-size: 1.3em;
+            }
+            .social-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 2em;
+            }
+            .loading-logo {
+                font-size: 3em;
+            }
+            .loader-spinner {
+                width: 60px;
+                height: 60px;
+            }
+            .full-page-background {
+                padding-top: var(--header-height); /* للحفاظ على الإزاحة */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-header {
+                padding: 8px 0;
+            }
+            .hero-title {
+                font-size: 2.2em;
+            }
+            .hero-description {
+                font-size: 1.1em;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            #store h2 {
+                font-size: 2em;
+            }
+            #store p {
+                font-size: 1em;
+            }
+            #store .btn {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.6em;
+                margin: 0 10px;
+            }
+            .loading-logo {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loader-content">
+            <h1 class="loading-logo glow-text">Akio Edits</h1>
+            <div class="loader-spinner"></div>
+            <p>يتم التحميل...</p>
+        </div>
+    </div>
+
+    <!-- تم إزالة هذا الهيدر بالكامل -->
+    <!--
+    <header class="main-header">
+        <div class="container">
+            <h1 class="logo glow-text">Akio Edits</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about" class="glow-text">من نحن؟</a></li>
+                    <li><a href="#portfolio" class="glow-text">أعمالنا</a></li>
+                    <li><a href="#store" class="glow-text">المتجر</a></li>
+                    <li><a href="#contact" class="glow-text">تواصل معنا</a></li>
+                    <li><a href="https://www.tiktok.com/@edit.akio7" target="_blank" class="tiktok-link glow-text">قناتنا على TikTok</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    -->
+
+    <!-- حاوية جديدة للخلفية تبدأ من تحت الهيدر -->
+    <div class="full-page-background">
+        <main>
+            <section id="hero" class="hero-section">
+                <div class="container">
+                    <div class="hero-content">
+                        <h2 class="hero-title glow-text">نحن نحول أفكاركم إلى تحف بصرية ساحرة</h2>
+                        <p class="hero-description">مونتاج احترافي بلمسة أنمي فريدة، نطلق العنان لإبداعكم.</p>
+                        <a href="#store" class="btn glow-btn">اكتشف المتجر الآن!</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="about-section section-bg">
+                <div class="container">
+                    <h2 class="section-title glow-text">من نحن؟</h2>
+                    <div class="about-content">
+                        <p>Akio Edits هو شغفنا بتحويل قصصك إلى روائع بصرية متحركة بلمسة أنمي فريدة.</p>
+                        <p>نحن خبراء في المونتاج، نقدم فيديوهات احترافية بجودة عالية وتأثيرات مبتكرة تأسر المشاهدين.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="portfolio" class="portfolio-section">
+                <div class="container">
+                    <h2 class="section-title glow-text">أعمالنا المميزة</h2>
+                    <div class="portfolio-grid">
+                        <!-- فيديو 1: Mahito - تأكد من استبدال المسار بمسار ملف الفيديو الخاص بك -->
+                        <div class="video-item glow-border-card">
+                            <div class="video-wrapper">
+                                <video controls loop preload="metadata">
+                                    <source src="videos/mahito_video.mp4" type="video/mp4">
+                                    متصفحك لا يدعم تشغيل الفيديو.
+                                </video>
+                            </div>
+                        </div>
+                        <!-- فيديو 2: Kurumi Tokisaki - تأكد من استبدال المسار بمسار ملف الفيديو الخاص بك -->
+                        <div class="video-item glow-border-card">
+                            <div class="video-wrapper">
+                                <video controls loop preload="metadata">
+                                    <source src="videos/kurumi_video.mp4" type="video/mp4">
+                                    متصفحك لا يدعم تشغيل الفيديو.
+                                </video>
+                            </div>
+                        </div>
+                        <!-- فيديو 3: Tojiii - تأكد من استبدال المسار بمسار ملف الفيديو الخاص بك -->
+                        <div class="video-item glow-border-card">
+                            <div class="video-wrapper">
+                                <video controls loop preload="metadata">
+                                    <source src="videos/toji_video.mp4" type="video/mp4">
+                                    متصفحك لا يدعم تشغيل الفيديو.
+                                </video>
+                            </div>
+                        </div>
+                        <!-- فيديو 4: Fenrys - تأكد من استبدال المسار بمسار ملف الفيديو الخاص بك -->
+                        <div class="video-item glow-border-card">
+                            <div class="video-wrapper">
+                                <video controls loop preload="metadata">
+                                    <source src="videos/fenrys_video.mp4" type="video/mp4">
+                                    متصفحك لا يدعم تشغيل الفيديو.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="view-more">
+                        <a href="https://www.tiktok.com/@edit.akio7" target="_blank" class="btn glow-btn">شاهد المزيد من أعمالنا على TikTok</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="store" class="section-bg">
+                <div class="container">
+                    <h2 class="glow-text">متجر Akio - انطلق بإبداعك!</h2>
+                    <p>اكتشف مجموعتنا الحصرية من حزم المونتاج، التأثيرات، والموارد التي ستجعل فيديوهاتك تتألق بلمسة أنمي فريدة. كل ما تحتاجه لإطلاق العنان لإبداعك في مكان واحد.</p>
+                    <a href="https://payhip.com/xAkiostore" target="_blank" class="btn glow-btn">تصفح المتجر الآن!</a>
+                </div>
+            </section>
+
+            <section id="contact" class="contact-section">
+                <div class="container">
+                    <h2 class="section-title glow-text">تواصل معنا</h2>
+                    <p class="contact-intro">نحن هنا للإجابة على استفساراتك وتلقي طلباتك الخاصة. يمكنك التواصل معنا مباشرة عبر وسائل التواصل الاجتماعي المفضلة لديك:</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/akio.edit1/?igsh=MXJyb3pxZXJ5cnh3cA%3D%3D#" target="_blank" class="social-icon instagram-icon glow-btn" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@edit.akio7" target="_blank" class="social-icon tiktok-icon glow-btn" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@akio.edit0" target="_blank" class="social-icon youtube-icon glow-btn" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://t.me/+qPHwQEMx3n1jOTdk" target="_blank" class="social-icon telegram-icon glow-btn" aria-label="Telegram">
+                            <i class="fab fa-telegram-plane"></i>
+                        </a>
+                        <a href="https://discord.gg/u4SqdgURXK" target="_blank" class="social-icon discord-icon glow-btn" aria-label="Discord">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                    <div class="join-discord-group">
+                        <p class="glow-text">انضم لمجتمعنا المتنامي على ديسكورد للحصول على التحديثات والمناقشات الحصرية!</p>
+                        <a href="https://discord.gg/u4SqdgURXK" target="_blank" class="btn glow-btn">انضم إلى سيرفر الديسكورد</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div> <!-- نهاية full-page-background -->
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>© 2025 Akio Edits. جميع الحقوق محفوظة لك. نصنع الفن، نصنع الذكريات.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            window.onload = () => {
+                setTimeout(() => {
+                    loadingScreen.classList.add('hidden');
+                }, 2000);
+            };
+
+            const sections = document.querySelectorAll('section');
+            const options = {
+                root: null,
+                threshold: 0.2,
+                rootMargin: "0px"
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.transform = 'translateY(0) scale(1) rotateZ(0deg)';
+                        entry.target.style.opacity = '1';
+                        observer.unobserve(entry.target);
+                    } else {
+                        entry.target.style.transform = 'translateY(80px) scale(0.95) rotateZ(2deg)';
+                        entry.target.style.opacity = '0';
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                section.style.transition = 'opacity 1.2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 1.2s cubic-bezier(0.25, 0.2, 0.8, 1)';
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(80px) scale(0.95) rotateZ(2deg)';
+                observer.observe(section);
+            });
+
+            const orderButtons = document.querySelectorAll('.order-btn');
+            orderButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                    alert('شكرًا لاهتمامك! يرجى التواصل معنا عبر وسائل التواصل الاجتماعي المفضلة لديك لمناقشة طلبك.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
